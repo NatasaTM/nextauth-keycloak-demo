@@ -32,7 +32,18 @@ export async function GET(request: NextRequest) {
   });
 
   // 5) Parse the response from Spring Boot and forward it back to the client.
-  const data = await r.json();
-  return NextResponse.json(data, { status: r.status });
+//    Add protection in case backend doesn't return JSON (e.g. 401 with HTML).
+const contentType = r.headers.get("content-type") ?? "";
+
+if (!contentType.includes("application/json")) {
+  const text = await r.text();
+  return NextResponse.json(
+    { error: "Invalid JSON response from backend", raw: text },
+    { status: r.status }
+  );
+}
+
+const data = await r.json();
+return NextResponse.json(data, { status: r.status });
 }
 

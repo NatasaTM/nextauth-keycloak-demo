@@ -117,7 +117,9 @@ export const authOptions: NextAuthOptions = {
 
   // Secret used to encrypt JWT tokens
   // Should be a random string stored in environment variables
-  secret: process.env.AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
+
+
 };
 
 const handler = NextAuth(authOptions);

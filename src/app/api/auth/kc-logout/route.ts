@@ -1,10 +1,10 @@
-// src/app/api/auth/kc-logout/route.ts
-// Invalidates the Keycloak session by revoking the refresh_token.
-// Must be called BEFORE NextAuth signOut() (while session cookie still exists).
-
 import { NextResponse, type NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
+/**
+ * Server route to revoke Keycloak session using refresh_token.
+ * Must be called BEFORE NextAuth signOut (while session cookie exists).
+ */
 export async function POST(req: NextRequest) {
   const issuer = process.env.AUTH_KEYCLOAK_ISSUER!;
   const clientId = process.env.AUTH_KEYCLOAK_ID!;
@@ -17,23 +17,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "no_refresh_token" }, { status: 400 });
   }
 
-  // Keycloak logout via refresh_token
   const body = new URLSearchParams({
     client_id: clientId,
     client_secret: clientSecret,
     refresh_token: String(refreshToken),
   });
 
-  // POST /protocol/openid-connect/logout
   const resp = await fetch(`${issuer}/protocol/openid-connect/logout`, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
-    // no-store just in case
     cache: "no-store",
   });
 
-  // KC često vraća 204 No Content na success
+  // Keycloak often returns 204 on success
   if (!resp.ok && resp.status !== 204) {
     const text = await resp.text().catch(() => "");
     return NextResponse.json(
