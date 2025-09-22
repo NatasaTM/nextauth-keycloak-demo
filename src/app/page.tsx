@@ -1,5 +1,5 @@
 // src/app/page.tsx
-"use client"; // required because we call signIn()
+"use client";
 
 import { signIn } from "next-auth/react";
 
@@ -11,7 +11,7 @@ export default function Home() {
         <h1 className="text-7xl md:text-8xl font-extrabold text-white mb-6 tracking-tight">
           Welcome <span className="align-middle text-6xl md:text-7xl">👋</span>
         </h1>
-        
+
         {/* Subtitle */}
         <p className="text-3xl md:text-4xl text-slate-200 mb-12 font-light">
           This is a{" "}
@@ -21,34 +21,36 @@ export default function Home() {
           home page.
         </p>
 
-        {/* Info box with links */}
+        {/* Info box with CTA */}
         <div className="bg-slate-900/40 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-          <p className="text-xl md:text-2xl text-slate-300 leading-relaxed">
-            Try the protected{" "}
-            {/* ⬇️ Instead of a Link to /app, we trigger signIn() directly */}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                signIn("keycloak", { callbackUrl: "/app" });
-              }}
-              className="font-semibold text-indigo-300 hover:text-indigo-200 underline underline-offset-4 transition-colors duration-200"
-            >
-              App
-            </a>
-            . If you are not authenticated, click{" "}
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                signIn("keycloak", { callbackUrl: "/app" });
-              }}
-              className="font-semibold text-indigo-300 hover:text-indigo-200 underline underline-offset-4 transition-colors duration-200"
-            >
-              Login
-            </a>{" "}
-            to sign in with Keycloak.
+          <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-8">
+            Try the protected App. If you are not authenticated,
+            you’ll be redirected to Keycloak.
           </p>
+
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            {/* CTA button → starts signIn flow */}
+            <button
+              onClick={() => signIn("keycloak", { callbackUrl: "/app" })}
+              className="px-6 py-3 rounded-xl font-semibold text-lg
+                         bg-indigo-600 text-white shadow-lg
+                         hover:bg-indigo-700 active:bg-indigo-800
+                         transition-colors duration-200"
+            >
+              Go to App
+            </button>
+
+            {/* Secondary link style */}
+            <button
+              onClick={() => signIn("keycloak", { callbackUrl: "/app" })}
+              className="px-6 py-3 rounded-xl font-semibold text-lg
+                         bg-slate-800 text-slate-200 shadow-lg
+                         hover:bg-slate-700 active:bg-slate-800
+                         transition-colors duration-200"
+            >
+              Login with Keycloak
+            </button>
+          </div>
         </div>
 
         {/* Features grid */}
