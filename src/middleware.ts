@@ -1,32 +1,40 @@
 // src/middleware.ts
-// Protect all /app/* pages and all /api/* BFF routes.
-// We explicitly skip NextAuth's own /api/auth/* endpoints inside the middleware.
+// Protects all /app/* pages and your BFF /api/* routes,
+// while skipping NextAuth's own endpoints.
+// Unauthenticated users are sent to /auth/login (a tiny client page that immediately calls signIn("keycloak")).
 
 import { withAuth } from "next-auth/middleware";
 import type { NextRequest } from "next/server";
 
 export default withAuth(
   function middleware(req: NextRequest) {
-    // ✅ Allow NextAuth internal endpoints without auth checks
-    if (req.nextUrl.pathname.startsWith("/api/auth")) {
+    const { pathname } = req.nextUrl;
+
+    // ✅ Always allow NextAuth internal endpoints
+    // (token exchange, callbacks, CSRF checks, etc.)
+    if (pathname.startsWith("/api/auth")) {
       return; // equivalent to NextResponse.next()
     }
 
-    // (Optional) If you have public API under /api/public/*, skip them too:
-    // if (req.nextUrl.pathname.startsWith("/api/public")) return;
+    // ✅ (Optional) Allow public API without auth
+    // if (pathname.startsWith("/api/public")) return;
 
-    // No custom logic needed; withAuth will enforce auth for matched routes below.
+    // No custom logic needed here; withAuth handles the auth check
+    // and will redirect unauthenticated users to pages.signIn below.
   },
   {
-    pages: { signIn: "/login" }, // unauthenticated users go here
+    // ⬇️ Instead of a custom /login screen, point to our relay page.
+    // That page immediately triggers signIn("keycloak", { callbackUrl })
+    // so users go straight to Keycloak (no NextAuth interstitial).
+    pages: { signIn: "/auth/login" },
   }
 );
 
-// ✅ Use only globs in matcher (no regex lookaheads)
+// Apply auth checks only to these paths.
+// Note: /api/auth/* is still matched here, but we early-return above.
 export const config = {
   matcher: [
-    "/app/:path*",  // protect all application pages
-    "/api/:path*",  // protect all BFF API routes (except the skips above)
+    "/app/:path*", // protect all app pages
+    "/api/:path*", // protect BFF API routes
   ],
 };
-
