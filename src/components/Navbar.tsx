@@ -53,15 +53,29 @@ export default function Navbar() {
               <>
                 {/* Direct login: opens Keycloak login screen */}
                 <button
-                  onClick={async () => {
-                    setAuthLoading(true);
-                    await signIn("keycloak", { callbackUrl: "/app" });
-                  }}
-                  disabled={authLoading}
-                  className="text-slate-300 hover:text-indigo-300 disabled:opacity-60"
-                >
-                  {authLoading ? "Redirecting…" : "Login"}
-                </button>
+  type="button"
+  onClick={async () => {
+    setAuthLoading(true);
+    try {
+      await signIn("keycloak", { callbackUrl: "/app" });
+    } finally {
+      // Ako dođe do greške/otkaza (npr. popup blokiran), vrati dugme iz busy stanja
+      setAuthLoading(false);
+    }
+  }}
+  disabled={authLoading}
+  aria-busy={authLoading}
+  className="
+    inline-flex items-center
+    text-slate-300 hover:text-indigo-300
+    cursor-pointer disabled:cursor-not-allowed disabled:opacity-60
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500
+  "
+  title="Login"
+>
+  {authLoading ? "Redirecting…" : "Login"}
+</button>
+
 
                 {/* Register button is optional: 
                     With Keycloak, registration is usually enabled on the login page,

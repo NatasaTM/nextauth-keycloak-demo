@@ -1,4 +1,3 @@
-// src/app/page.tsx
 "use client";
 
 import { signIn } from "next-auth/react";
@@ -31,22 +30,34 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             {/* CTA button → starts signIn flow */}
             <button
+              type="button"
               onClick={() => signIn("keycloak", { callbackUrl: "/app" })}
-              className="px-6 py-3 rounded-xl font-semibold text-lg
-                         bg-indigo-600 text-white shadow-lg
-                         hover:bg-indigo-700 active:bg-indigo-800
-                         transition-colors duration-200"
+              className="
+                px-6 py-3 rounded-xl font-semibold text-lg
+                bg-indigo-600 text-white shadow-lg
+                hover:bg-indigo-700 active:bg-indigo-800
+                transition-colors duration-200
+                cursor-pointer focus-visible:outline-none
+                focus-visible:ring-2 focus-visible:ring-indigo-500
+              "
+              title="Go to App"
             >
               Go to App
             </button>
 
             {/* Secondary link style */}
             <button
+              type="button"
               onClick={() => signIn("keycloak", { callbackUrl: "/app" })}
-              className="px-6 py-3 rounded-xl font-semibold text-lg
-                         bg-slate-800 text-slate-200 shadow-lg
-                         hover:bg-slate-700 active:bg-slate-800
-                         transition-colors duration-200"
+              className="
+                px-6 py-3 rounded-xl font-semibold text-lg
+                bg-slate-800 text-slate-200 shadow-lg
+                hover:bg-slate-700 active:bg-slate-800
+                transition-colors duration-200
+                cursor-pointer focus-visible:outline-none
+                focus-visible:ring-2 focus-visible:ring-indigo-500
+              "
+              title="Login with Keycloak"
             >
               Login with Keycloak
             </button>
