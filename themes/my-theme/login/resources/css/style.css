@@ -1,0 +1,440 @@
+/* ===== Variables — same vibe as your app ===== */
+:root {
+  --background: linear-gradient(to bottom, #020617, #312e81, #0f172a);
+  --foreground: #f1f5f9;
+  --surface: rgba(2, 6, 23, .6);
+  --surface-border: rgba(148, 163, 184, .15);
+  --accent: #6366f1; 
+  --accent-hover: #4f46e5;
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(2, 6, 23, .55);
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html, body { 
+  height: 100%; 
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Aggressively remove ALL background images and colors ===== */
+*, 
+*::before, 
+*::after,
+html,
+body,
+body.login-pf,
+body.login-pf::before,
+body.login-pf::after,
+.login-pf-page,
+.login-pf-page::before,
+.login-pf-page::after,
+#kc-header,
+#kc-header::before,
+#kc-header::after,
+#kc-header-wrapper,
+.login-pf-header,
+.login-pf-brand,
+.login-pf-social,
+div[class*="login"],
+div[class*="pf"],
+.container,
+.row,
+.col-md-12 {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* ===== Global background ===== */
+html {
+  background: var(--background) !important;
+  min-height: 100vh;
+}
+
+body,
+body.login-pf {
+  background: var(--background) !important;
+  background-attachment: fixed !important;
+  color: var(--foreground) !important;
+  font-family: var(--font-sans) !important;
+  min-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* ===== Extra safety — cover all potential wrapper elements ===== */
+.login-pf-page,
+.login-pf-page .container,
+.login-pf-page .row,
+.login-pf-page .col-md-12,
+#kc-content-wrapper,
+#kc-content,
+#kc-form-wrapper {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* ===== Hide header/logo area ===== */
+#kc-header-wrapper,
+#kc-header,
+.login-pf-header {
+  display: none !important;
+}
+
+/* ===== Card / form box (glass look) ===== */
+.login-pf-page .card-pf,
+#kc-form,
+.card-pf {
+  background: rgba(2, 6, 23, 0.85) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: 0 20px 40px rgba(2, 6, 23, 0.8) !important;
+  max-width: 480px !important;
+  margin: 0 auto !important;
+  padding: 2rem !important;
+}
+
+/* ===== Form title ===== */
+#kc-page-title,
+.login-pf-page h1,
+.login-pf-page .kc-page-title {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* ===== Inputs ===== */
+.login-pf-page input[type="text"],
+.login-pf-page input[type="password"],
+.login-pf-page input[type="email"],
+.form-group input,
+#username,
+#password {
+  background: rgba(15, 23, 42, 0.9) !important;
+  color: var(--foreground) !important;
+  border: 1px solid rgba(148, 163, 184, 0.3) !important;
+  border-radius: 10px !important;
+  padding: 0.75rem 1rem !important;
+  margin-bottom: 1rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.login-pf-page input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.login-pf-page input:focus {
+  outline: none !important;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+/* ===== Labels ===== */
+.login-pf-page label,
+.form-group label {
+  color: var(--foreground) !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+
+/* ===== Buttons ===== */
+#kc-login,
+.btn-primary,
+input[type="submit"] {
+  background: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: 10px !important;
+  color: white !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 1.5rem !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  width: 100% !important;
+}
+
+#kc-login:hover,
+.btn-primary:hover,
+input[type="submit"]:hover {
+  background: var(--accent-hover) !important;
+  border-color: var(--accent-hover) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* ===== Links ===== */
+.login-pf-page a {
+  color: var(--accent) !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.login-pf-page a:hover {
+  color: var(--accent-hover) !important;
+  text-decoration: underline !important;
+}
+
+/* ===== Alerts (errors) ===== */
+.alert,
+.alert-error,
+.alert-warning,
+.alert-info,
+#kc-feedback-wrapper .alert {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #fecaca !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+/* ===== Remember-me checkbox ===== */
+.checkbox label {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.checkbox input[type="checkbox"] {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+/* ===== Footer link ===== */
+a.back-to-site {
+  display: block !important;
+  margin-top: 1rem !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  opacity: 0.95 !important;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .login-pf-page .card-pf,
+  #kc-form,
+  .card-pf {
+    max-width: 90% !important;
+    margin: 1rem auto !important;
+    padding: 1.5rem !important;
+  }
+}
+
+/* ===== Password visibility icon — remove all default chrome ===== */
+/* Try to catch every variant of the PatternFly password toggle */
+.pf-c-form__group-control .pf-c-button,
+.password-visibility-toggle,
+button[type="button"]:not(#kc-login):not(.btn-primary),
+.form-group button[type="button"],
+.input-group-addon,
+.input-group-btn button,
+button.btn.btn-default,
+.btn-default,
+.toggle-password,
+[data-testid*="password"],
+button[aria-label*="password"],
+button[title*="password"],
+*[class*="eye"],
+*[class*="password-toggle"],
+*[class*="visibility"] {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  color: var(--foreground) !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-width: auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+  line-height: 1 !important;
+}
+
+/* Hover states — also no chrome */
+.pf-c-form__group-control .pf-c-button:hover,
+.pf-c-form__group-control .pf-c-button:focus,
+.pf-c-form__group-control .pf-c-button:active,
+.password-visibility-toggle:hover,
+.password-visibility-toggle:focus,
+.password-visibility-toggle:active,
+button[type="button"]:not(#kc-login):not(.btn-primary):hover,
+button[type="button"]:not(#kc-login):not(.btn-primary):focus,
+button[type="button"]:not(#kc-login):not(.btn-primary):active,
+.input-group-addon:hover,
+.input-group-addon:focus,
+.input-group-addon:active,
+.input-group-btn button:hover,
+.input-group-btn button:focus,
+.input-group-btn button:active,
+button.btn.btn-default:hover,
+button.btn.btn-default:focus,
+button.btn.btn-default:active,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
+  color: white !important;
+}
+
+/* Strip all possible styles for the password field controls */
+.input-group .input-group-addon,
+.input-group .input-group-btn,
+.input-group .input-group-btn .btn,
+.input-group-addon *,
+.input-group-btn *,
+.pf-c-form__group-control * {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-width: 0 !important;
+  border-style: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Icon inside the password field */
+.pf-c-form__group-control .pf-c-button svg,
+.password-visibility-toggle svg,
+button[type="button"] svg,
+.input-group-addon i,
+.input-group-btn i,
+.fa,
+[class*="fa-eye"],
+svg[class*="eye"],
+i[class*="eye"],
+span[class*="eye"] {
+  fill: var(--foreground) !important;
+  color: var(--foreground) !important;
+  width: 20px !important;
+  height: 20px !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Password field with icon — extra positioning */
+.form-group {
+  position: relative !important;
+}
+
+.input-group {
+  display: flex !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+.input-group input {
+  flex: 1 !important;
+  border-right: none !important;
+  padding-right: 40px !important;
+}
+
+.input-group .input-group-addon,
+.input-group .input-group-btn {
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Page spacing */
+.login-pf body,
+.login-pf-page {
+  padding-top: 4vh !important;
+  padding-bottom: 4vh !important;
+  min-height: 100vh !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* === Password visibility — PatternFly-friendly variant === */
+.pf-c-input-group{
+  display: flex;
+  align-items: center;
+  gap: 12px;                     /* gap between input and icon */
+}
+
+.pf-c-input-group > *:not(:first-child){
+  margin-left: 0 !important;     /* reset PF default margin-left */
+}
+
+.pf-c-input-group .pf-c-form-control{
+  flex: 1 1 auto;
+  padding-right: 14px;           /* normal padding inside the field */
+  /* keep whatever border/radius you already have */
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control{
+  position: static;              /* NOT absolute — sits to the right, inline */
+  width: 28px; height: 28px; min-width: 28px;
+  padding: 0; margin: 0;
+  background: transparent; 
+  border: 0; box-shadow: none; outline: none;
+  line-height: 0; cursor: pointer;
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control::before,
+.pf-c-input-group .pf-c-button.pf-m-control::after{
+  content: none;                 /* no outline/chrome or pseudo-elements */
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control svg,
+.pf-c-input-group .pf-c-button.pf-m-control i{
+  width: 20px; height: 20px;
+  color: var(--foreground); 
+  fill: currentColor;
+}
+
+/* Precisely center the "eye" relative to the input */
+.pf-c-input-group .pf-c-button.pf-m-control{
+  display: inline-flex;                 
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-c-input-group .pf-c-button.pf-m-control i,
+.pf-c-input-group .pf-c-button.pf-m-control svg{
+  display: block;                       
+  vertical-align: middle;
+  line-height: 1;
+  /* tweak if needed:
+  transform: translateY(-1px);
+  */
+}
+
+/* (optional) fine-tune input ↔ icon gap */
+.pf-c-input-group{ gap: 10px; }         /* change 8–12px to taste */

@@ -36,10 +36,10 @@ export default function LogoutButton() {
     aria-busy={busy}
     className="
       inline-flex items-center gap-2
-      rounded border border-slate-700 px-3 py-2
-      bg-slate-900/40 text-slate-100 text-sm
+      
+      bg-slate-900/40  text-sm
       transition-colors
-      hover:bg-slate-800/60 hover:border-slate-600
+       text-slate-300 hover:text-indigo-300
       cursor-pointer disabled:cursor-not-allowed disabled:opacity-60
       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500
     "
