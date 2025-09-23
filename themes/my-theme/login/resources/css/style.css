@@ -438,3 +438,7 @@ span[class*="eye"] {
 
 /* (optional) fine-tune input ↔ icon gap */
 .pf-c-input-group{ gap: 10px; }         /* change 8–12px to taste */
+
+/* make sure KC info strip can show */
+#kc-info, #kc-info-wrapper, .kc-info { display: block !important; }
+
