@@ -9,9 +9,9 @@ import Keycloak from "next-auth/providers/keycloak";
  *
  * If ISSUER_INTERNAL is not provided, we try to derive it from TOKEN_URL.
  */
-const AUTH_URL_PUBLIC = process.env.AUTH_KEYCLOAK_AUTH_URL; // e.g. http://localhost:8080/realms/demo/protocol/openid-connect/auth
-const TOKEN_URL = process.env.AUTH_KEYCLOAK_TOKEN_URL;       // e.g. http://keycloak:8080/realms/demo/protocol/openid-connect/token
-const ISSUER_INTERNAL_EXPLICIT = process.env.AUTH_KEYCLOAK_ISSUER; // e.g. http://keycloak:8080/realms/demo
+const AUTH_URL_PUBLIC = process.env.AUTH_KEYCLOAK_AUTH_URL;
+const TOKEN_URL = process.env.AUTH_KEYCLOAK_TOKEN_URL;
+const ISSUER_INTERNAL_EXPLICIT = process.env.AUTH_KEYCLOAK_ISSUER;
 
 // Try to derive issuer from TOKEN_URL if explicit issuer is missing
 const ISSUER_FROM_TOKEN =
@@ -19,6 +19,20 @@ const ISSUER_FROM_TOKEN =
 
 // Final internal issuer used by the server (Docker network)
 const ISSUER_INTERNAL = ISSUER_INTERNAL_EXPLICIT ?? ISSUER_FROM_TOKEN;
+
+// 🔍 DEBUG - dodajte console.log da vidimo šta se koristi
+console.log("🔍 NextAuth Debug Info:");
+console.log("AUTH_URL_PUBLIC:", AUTH_URL_PUBLIC);
+console.log("TOKEN_URL:", TOKEN_URL);
+console.log("ISSUER_INTERNAL_EXPLICIT:", ISSUER_INTERNAL_EXPLICIT);
+console.log("ISSUER_FROM_TOKEN:", ISSUER_FROM_TOKEN);
+console.log("FINAL ISSUER_INTERNAL:", ISSUER_INTERNAL);
+console.log("ALL KEYCLOAK ENV VARS:", {
+  AUTH_KEYCLOAK_AUTH_URL: process.env.AUTH_KEYCLOAK_AUTH_URL,
+  AUTH_KEYCLOAK_TOKEN_URL: process.env.AUTH_KEYCLOAK_TOKEN_URL,
+  AUTH_KEYCLOAK_ISSUER: process.env.AUTH_KEYCLOAK_ISSUER,
+  AUTH_KEYCLOAK_USERINFO_URL: process.env.AUTH_KEYCLOAK_USERINFO_URL
+});
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -53,12 +67,9 @@ export const authOptions: NextAuthOptions = {
   // JWT in HttpOnly cookies (stateless)
   session: { strategy: "jwt" },
 
-  // Keep your existing callbacks here (jwt/session) if you already have them:
-  // callbacks: { ... }
-
   secret: process.env.NEXTAUTH_SECRET,
 
-  // Enable while debugging:
+  // 🔍 Enable debug to see more details
   debug: true,
 };
 
