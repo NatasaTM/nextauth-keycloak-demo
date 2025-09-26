@@ -59,7 +59,7 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 
   // Enable while debugging:
-  // debug: process.env.NODE_ENV !== "production",
+  debug: true,
 };
 
 const handler = NextAuth(authOptions);
