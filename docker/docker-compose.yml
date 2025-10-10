@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.2
+    container_name: kc-dev2
+    command:
+      - start-dev
+      - --spi-theme-static-max-age=-1
+      - --spi-theme-cache-themes=false
+      - --spi-theme-cache-templates=false
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - kc_data:/opt/keycloak/data
+      - ./../themes:/opt/keycloak/themes
+    restart: unless-stopped
+
+  mailpit:
+    image: axllent/mailpit:v1.20.4
+    container_name: mailpit
+    environment:
+      MP_MAX_MESSAGES: "500"
+    ports:
+      - "8025:8025"  # Web UI
+      - "1025:1025"  # SMTP
+    restart: unless-stopped
+
+volumes:
+  kc_data:
